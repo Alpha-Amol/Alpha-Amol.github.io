@@ -1,1 +1,0 @@
-# Alpha-Amol.github.io
