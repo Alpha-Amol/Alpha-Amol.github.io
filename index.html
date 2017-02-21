@@ -56,7 +56,7 @@ function defFunction() {
     {
        myDiv.style.display = "none";
        var str = String(window.location);
-       var res = str.substring(pos+5,pos+25);
+       res = str.substring(pos+5,pos+25);
        document.getElementById("auth").innerHTML = res;
        publishSampleMessage();
     }
