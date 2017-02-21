@@ -30,7 +30,7 @@ Register for Amazon DRS..</h1>
 <br />
 
 <script>
-var authcode = "jkhdfjksdhffbjsfgbjfg";
+var res;
 
 var pubnub = new PubNub({
     publishKey : 'pub-c-2daff9e3-8db4-4691-85e4-f1696e23ec65',
@@ -42,7 +42,7 @@ function publishSampleMessage() {
 	console.log("Since we're publishing on subscribe connectEvent, we're sure we'll receive the following publish.");
 	var publishConfig = {
 		channel : "my_channel3",
-		message : authcode
+		message : res
 	}
 	pubnub.publish(publishConfig, function(status, response) {
 		console.log(status, response);
@@ -58,7 +58,7 @@ function defFunction() {
        var str = String(window.location);
        var res = str.substring(pos+5,pos+25);
        document.getElementById("auth").innerHTML = res;
-	   authcode = res;
+       publishSampleMessage();
     }
 }
 
