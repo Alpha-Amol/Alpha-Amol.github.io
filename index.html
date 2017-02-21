@@ -1,5 +1,7 @@
-<h1> Smart JAR </h1>
 <html>
+  <head>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.4.4.js"></script>
+  </head>
 <body>
 <div id="first" style="clear: both; text-align: center;">
 <h1>
@@ -26,6 +28,23 @@ Register for Amazon DRS..</h1>
 <br />
 
 <script>
+function publish() {  
+    pubnub = new PubNub({
+        publishKey : 'pub-c-2daff9e3-8db4-4691-85e4-f1696e23ec65',
+        subscribeKey : 'sub-c-6a3ea956-c04a-11e6-b38f-02ee2ddab7fe'
+    })
+       
+    function publishSampleMessage() {
+        console.log("Since we're publishing on subscribe connectEvent, we're sure we'll receive the following publish.");
+        var publishConfig = {
+            channel : "my_channel3",
+            message : "Hello from PubNub Docs!"
+        }
+        pubnub.publish(publishConfig, function(status, response) {
+            console.log(status, response);
+        })
+    }
+};
 function defFunction() {
     var str = String(window.location);
     var pos = str.indexOf("code=");
@@ -57,7 +76,7 @@ function fstFunction() {
     }
 }
 defFunction();
-fstFunction() 
+fstFunction();
 </script>
 </body>
 
