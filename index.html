@@ -4,7 +4,15 @@
 	<script src="pubnub.min.js"></script>
   </head>
 <body>
+<div id="first" style="clear: both; text-align: center;">
+<h1>Success...!!!</h1>
+<b> Your 20 character Authorisation Code is... </b>
+<h2 id="auth">
+</h2> 
+Please press config button on your device and enter above Authorisation Code to Validate your Device with Amazon DRS
+<br />
 
+</div>
 <div id="myDiv" style="clear: both; text-align: center;">
 <h1>
 Register for Amazon DRS..</h1>
@@ -13,23 +21,26 @@ Register for Amazon DRS..</h1>
   <b>PRODUCT MODEL ID </b> <br /> <input maxlength="36" name="pname" size="38" style="text-align: center;" type="text" value="OmegaJar" /><br /><br />
   <b>SERIAL NO </b><br /> <input maxlength="12" name="sname" size="14" style="text-align: center;" type="text" value="OmegaJarByESP8266" /><br /><br />
   <input onclick="lwaFunction()" type="button" value="Login with Amazon" />
+  <input onclick="publishSampleMessage()" type="button" value="Publish PubNub" />
 </form>
 </div>
 <br />
 <br />
 
 <script>
-var res;
+var authcode = "jkhdfjksdhffbjsfgbjfg";
+
 var pubnub = new PubNub({
     publishKey : 'pub-c-2daff9e3-8db4-4691-85e4-f1696e23ec65',
     subscribeKey : 'sub-c-6a3ea956-c04a-11e6-b38f-02ee2ddab7fe'
 })
+
      
 function publishSampleMessage() {
-	console.log("We are Publishing!!");
+	console.log("Since we're publishing on subscribe connectEvent, we're sure we'll receive the following publish.");
 	var publishConfig = {
 		channel : "my_channel3",
-		message : res
+		message : authcode
 	}
 	pubnub.publish(publishConfig, function(status, response) {
 		console.log(status, response);
@@ -43,11 +54,12 @@ function defFunction() {
     {
        myDiv.style.display = "none";
        var str = String(window.location);
-       res = str.substring(pos+5,pos+25);
+       var res = str.substring(pos+5,pos+25);
        document.getElementById("auth").innerHTML = res;
-       publishSampleMessage();
+	   authcode = res;
     }
 }
+
 function lwaFunction() {
     var str = String(window.location);
     var pos = str.indexOf("code=");
@@ -60,8 +72,17 @@ function lwaFunction() {
     }
 }
 
-defFunction();
+function fstFunction() {
+    var str = String(window.location);
+    var pos = str.indexOf("code=");
+    if(pos == -1)
+    {
+        first.style.display = "none";
+    }
+}
 
+defFunction();
+fstFunction();
 </script>
 </body>
 
